@@ -45,3 +45,16 @@ Date: 2026-11-09. Prepared locally on macOS; no remote repository was created or
 ## Public release validation
 
 2026-11-09: The public release updates README installation links and removes the obsolete unpublished status from the introduction example. All four Python tests and both Node tests passed again using the environment above. Page 3 was regenerated and visually checked at full readable resolution; all three pages have empty overflow lists. Original license texts and attribution remain unchanged. Public files were checked for personal filesystem paths, credentials and private account identifiers; none were found. Git author uses the GitHub no-reply address.
+
+## Optional dark theme — 2026-11-18
+
+- Baseline commit: a877f7f76adb64278d22716f31e28138bfc6724c. Original light CSS and default HTML remain byte-identical.
+- Added root JSON `theme` and CLI `--theme`, default light. Invalid themes are rejected. New CSS overrides only colors.
+- GitHub Actions run 44355883669 passed for implementation commit 665095cfd541e3fa087e6c2ef3baa9000e549842: six Python tests and three Node tests; existing browser safety guards remain covered.
+- Browser regression includes flow/stack/tags/papers, six palette colors, optional panel rows and long Chinese paragraphs. Light/dark DOM geometry is exactly equal. Right-side card and row text is white in dark mode.
+- Original neutral example: light/dark each 2400 × 3596; prior/default light PNG byte comparison passed. Both neutral update images: 2400 × 2898. All reports show no overflow and loaded fonts.
+- Chromium 151.0.7922.34 / Playwright 1.62.1 on the Actions runner with Noto CJK fonts. Local execution was blocked by the task sandbox's socket restriction; the unmodified browser renderer was tested on Actions instead.
+- Downloaded Actions artifacts and visually checked light, dark, and both update pages: CJK text, contrast, spacing and footer pass. Public PNGs are browser exports; no PDF intermediates or private renderer were added.
+- Original license files and private material boundary preserved. Theme/example/test/workflow license scope recorded in LICENSE-SCOPE.md.
+
+Verification: https://github.com/doublesq97-ui/su-zine/actions/runs/44355883669
