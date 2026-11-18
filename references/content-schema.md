@@ -5,6 +5,7 @@
 Use the complete minimal example in `assets/example.json`. All strings are plain UTF-8 text; newline creates a line break. HTML, including `<strong>` and `<br>`, is intentionally escaped. Do not paste source HTML into content.
 
 - Root: `series` (masthead), `brand` (neutral or user-approved), `pages` (nonempty array, arbitrary count).
+- Root optional: `theme` (`light` or `dark`, default `light`); builder `--theme` overrides it. Invalid JSON theme values are rejected even when a CLI override is present.
 - Page required: `title`, `intro`, `source` (visible attribution including short URL when available), `blocks`.
 - Page optional: `sub`, `checktitle`, `checks` (pairs of heading/body), `closing`.
 - Block required: `title`, `paras` (paragraph strings), `kind`, `items` (diagram text), `caption` (identify conceptual diagrams).

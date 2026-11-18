@@ -59,3 +59,7 @@ Creating images does not authorize publication. Do not upload to GitHub, a publi
 
 ## Licensing
 Code/templates: PolyForm Noncommercial 1.0.0. Original documentation/example content: CC BY-NC 4.0. Read LICENSE-SCOPE.md for mixed files and exclusions. This is noncommercial source-available, not OSI-defined open source. Preserve attribution and indicate modifications as each license requires. Do not promise commercial authorization.
+
+## Optional dark theme
+
+Default remains `light`. Use root JSON `"theme": "dark"` or builder `--theme dark` only when requested. `--theme light` overrides JSON. Preserve the exact layout, spacing and typography; dark only changes color through `assets/theme-dark.css`. Use white body and diagram text, with color limited to labels, rules, arrows and accents. Do not recreate the layout or add decorative rings. Inspect every PNG and compare light/dark geometry for template changes.

@@ -64,6 +64,21 @@ git clone https://github.com/doublesq97-ui/su-zine.git
 
 [静态流程图](docs/media/workflow-poster.png) · [MP4 演示](docs/media/workflow.mp4)
 
+## 深色主题（2026-11-18）
+
+浅色 `light` 仍为默认。新增深色 `dark`：`#101114` 近黑底、`#eceef1` 白色正文，保留彩色边框、标签、箭头与强调色。右侧卡片正文同样使用白字。
+
+同一份内容的字体、字号、行高、边距、双栏、模块顺序和页脚保持原样；只覆盖颜色，不添加装饰环或重做版式。
+
+JSON 根节点可写 `"theme": "dark"`；命令行 `--theme light|dark` 可覆盖 JSON。省略两者即为浅色；无效主题会报错。颜色覆盖在 `assets/theme-dark.css`。
+
+```bash
+python3 scripts/build.py examples/dark-update/content.json --out output/dark-update --theme dark
+node scripts/render.cjs output/dark-update --scale 2
+```
+
+仍使用浏览器直接导出 PNG，不包含私有版 PDF 流程。切回浅色请用新的 `--out` 目录和 `--theme light`。
+
 ## 本地运行
 
 需要 **Python 3.10+、Node.js 20+、Chrome/Chromium 和中文字体**。Python 无第三方依赖；浏览器导出使用 Playwright。

@@ -1,0 +1,54 @@
+name: Theme regression
+on:
+  push:
+    branches: [main, 'theme/**']
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install renderer and CJK fonts
+        run: |
+          npm install --ignore-scripts
+          npx playwright install --with-deps chromium
+          sudo apt-get install -y fonts-noto-cjk
+      - name: Test builders and browser layout
+        run: npm test
+      - name: Render neutral review images
+        run: |
+          python3 scripts/build.py assets/example.json --out output/theme-review-light --theme light
+          node scripts/render.cjs output/theme-review-light
+          python3 scripts/build.py assets/example.json --out output/theme-review-dark --theme dark
+          node scripts/render.cjs output/theme-review-dark
+          python3 scripts/build.py examples/dark-update/content.json --out output/theme-update
+          node scripts/render.cjs output/theme-update
+      - name: Compare light output with parent commit
+        shell: bash
+        run: |
+          mkdir -p baseline/scripts baseline/assets
+          git show HEAD^:scripts/build.py > baseline/scripts/build.py
+          git show HEAD^:assets/style.css > baseline/assets/style.css
+          python3 baseline/scripts/build.py assets/example.json --out output/theme-review-baseline
+          node scripts/render.cjs output/theme-review-baseline
+          cmp output/theme-review-baseline/page-01.png output/theme-review-light/page-01.png
+      - uses: actions/upload-artifact@v4
+        with:
+          name: theme-review
+          path: |
+            output/theme-review-light/
+            output/theme-review-dark/
+            output/theme-review-baseline/
+            output/theme-update/
+          retention-days: 7

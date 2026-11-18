@@ -61,3 +61,15 @@ The workflow illustration uses Su’s local su-black-purple-gif renderer. Its or
 - docs/media/workflow.gif: Mixed.
 - docs/media/workflow.mp4: Mixed.
 - docs/media/workflow-poster.png: Mixed.
+
+## Dark theme update (2026-11-18)
+
+- assets/theme-dark.css: PolyForm.
+- examples/dark-update/content.json: CC.
+- examples/dark-update/sources.md: CC.
+- tests/themes.test.cjs: PolyForm.
+- tests/test_themes.py: PolyForm.
+
+No original license text or attribution is replaced by this update.
+
+- .github/workflows/themes.yml: PolyForm.

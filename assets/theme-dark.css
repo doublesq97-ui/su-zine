@@ -1,0 +1,21 @@
+/* Optional dark theme: color overrides only; original light geometry is unchanged. */
+body,.sheet{background:#101114;color:#eceef1}
+.mast{border-top-color:#6fe5ca;border-bottom-color:#4a515a}
+.brand,.caption,.source,.num span{color:#aeb5bd}
+.section,.closing,.num{color:#6fe5ca}
+.intro{color:#b1b5bc}
+.block,.checks{border-top-color:#3b424a}
+.footer{border-top-color:#4a515a}
+.graphic-title,.item,.item b,.row-label,.row-body{color:#eceef1}
+.item{background:#191b1f}
+.flow .item:not(:last-child)::after{color:var(--accent)}
+.checks{background:#24272c}
+.check-label{color:#b8a1ff}
+.closing{border-left-color:#b8a1ff}
+.c0{--accent:#6fe5ca;--pale:#20312e;--line:#3c5b53}
+.c1{--accent:#b8a1ff;--pale:#2c2738;--line:#514460}
+.c2{--accent:#edb393;--pale:#352923;--line:#6a4d3f}
+.c3{--accent:#83c7ff;--pale:#202d38;--line:#3b5569}
+
+.c4{--accent:#e0ca82;--pale:#332f22;--line:#655c3d}
+.c5{--accent:#efaac3;--pale:#35262e;--line:#684352}

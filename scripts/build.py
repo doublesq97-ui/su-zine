@@ -26,6 +26,8 @@ def pairs(value, where):
 def validate(data):
     if not isinstance(data, dict):
         raise ValueError("root must be an object")
+    if data.get("theme", "light") not in ("light", "dark"):
+        raise ValueError("theme must be light or dark")
     for key in ("series", "brand"):
         text(data.get(key), key)
     if not isinstance(data.get("pages"), list) or not data["pages"]:
@@ -104,14 +106,20 @@ def page_html(data, page, number):
             "</head><body>" + body + "</body></html>")
 
 
-def build(source, out):
+def build(source, out, theme=None):
     data = validate(json.loads(source.read_text(encoding="utf-8")))
+    theme = data.get("theme", "light") if theme is None else theme
+    if theme not in ("light", "dark"):
+        raise ValueError("theme must be light or dark")
     # A fresh output directory prevents stale page PNG files being mistaken for this build.
     if out.exists() and (not out.is_dir() or any(out.iterdir())):
         raise ValueError("--out must be a new or empty directory")
     out.mkdir(parents=True, exist_ok=True)
     css = Path(__file__).resolve().parent.parent / "assets" / "style.css"
-    (out / "style.css").write_text(css.read_text(encoding="utf-8"), encoding="utf-8")
+    stylesheet = css.read_text(encoding="utf-8")
+    if theme == "dark":
+        stylesheet += "\n" + (css.parent / "theme-dark.css").read_text(encoding="utf-8")
+    (out / "style.css").write_text(stylesheet, encoding="utf-8")
     for n, page in enumerate(data["pages"], 1):
         (out / f"page-{n:02}.html").write_text(page_html(data, page, n), encoding="utf-8")
     return len(data["pages"])
@@ -121,9 +129,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("content", type=Path)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--theme", choices=("light", "dark"), help="Override JSON theme; default is light")
     args = parser.parse_args()
     try:
-        count = build(args.content, args.out)
+        count = build(args.content, args.out, args.theme)
     except (OSError, ValueError) as exc:
         parser.exit(2, f"build: {exc}\n")
     print(f"Built {count} HTML pages in {args.out}")

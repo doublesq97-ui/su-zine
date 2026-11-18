@@ -11,3 +11,5 @@ For CC BY-NC material, appropriately credit Su (@Sukiea1008), retain supplied co
 For uses outside the granted scope, seek separate written permission from Su through the public X handle @Sukiea1008 before proceeding. No price, approval, response time or alternative license is promised. Only rights controlled by the rightsholder can be authorized.
 
 PolyForm and CC BY-NC have different permitted-use wording. Do not assume that every company use is prohibited, every unpaid use is permitted, or all educational uses are treated identically. Read each applicable license. Statutory exceptions and third-party rights remain unaffected.
+
+2026-11-18 modification: added an optional color-only dark theme and neutral update example; the default light design and original export pipeline are retained. Original script hashes above, where present, describe the recovered baseline, not modified files.
