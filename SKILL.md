@@ -63,3 +63,12 @@ Code/templates: PolyForm Noncommercial 1.0.0. Original documentation/example con
 ## Optional dark theme
 
 Default remains `light`. Use root JSON `"theme": "dark"` or builder `--theme dark` only when requested. `--theme light` overrides JSON. Preserve the exact layout, spacing and typography; dark only changes color through `assets/theme-dark.css`. Use white body and diagram text, with color limited to labels, rules, arrows and accents. Do not recreate the layout or add decorative rings. Inspect every PNG and compare light/dark geometry for template changes.
+
+## Optional atlas theme (图谱)
+
+Use only when the user asks for 图谱 / atlas, or for a reference-manual / architecture-map look. Root JSON `"theme": "atlas"` or builder `--theme atlas`. It is a standalone stylesheet (`assets/theme-atlas.css`) with its own geometry: warm paper `#FAF8F3`, one burnt-orange accent `#C8611E`, orange numbered modules with gray notes, beige boards holding white cards and black-outlined nodes, hairline footer with SOURCE row and account bottom-right. Chinese Noto Sans SC (heavy titles), Inter for Latin, JetBrains Mono for file names and numbers; minimum text 21–22 CSS px for phone reading.
+
+- Extra components (atlas only): `steps` (nodes + numbered solid/dashed arrows), `table` (pending/done/dropped rows), `files` (monospace list), `cards` (highlight + dashed dropped), `callout` (fill/outline), page `layout` cover/end and cover `toc`. Schema in `references/content-schema.md`.
+- The same honesty rules apply: label arrow/process diagrams “编辑整理”; use table `state` only for status the source states; never invent numbers to fill a table.
+- Existing flow/stack/tags/papers content renders in atlas too. Light/dark output is unchanged by this theme; atlas-only kinds are rejected under light/dark.
+- Inspect every PNG as usual. Atlas title weight 900 needs Noto Sans SC or fonts-noto-cjk-extra; with Regular/Bold only, titles fall back to Bold.

@@ -5,7 +5,7 @@
 Use the complete minimal example in `assets/example.json`. All strings are plain UTF-8 text; newline creates a line break. HTML, including `<strong>` and `<br>`, is intentionally escaped. Do not paste source HTML into content.
 
 - Root: `series` (masthead), `brand` (neutral or user-approved), `pages` (nonempty array, arbitrary count).
-- Root optional: `theme` (`light` or `dark`, default `light`); builder `--theme` overrides it. Invalid JSON theme values are rejected even when a CLI override is present.
+- Root optional: `theme` (`light`, `dark` or `atlas`, default `light`); builder `--theme` overrides it. Invalid JSON theme values are rejected even when a CLI override is present.
 - Page required: `title`, `intro`, `source` (visible attribution including short URL when available), `blocks`.
 - Page optional: `sub`, `checktitle`, `checks` (pairs of heading/body), `closing`.
 - Block required: `title`, `paras` (paragraph strings), `kind`, `items` (diagram text), `caption` (identify conceptual diagrams).
@@ -30,3 +30,16 @@ Only newly generated local HTML and style.css are allowed. Networking and page J
 A fresh output directory is required for building. Rendering refuses existing image/report files unless --overwrite is explicitly supplied.
 Scale must be 0.25–4; height at most 10000 CSS pixels; raster output at most 80 million pixels. Overflow fails the run. A render report does not replace visual inspection.
 For custom widths, update assets/style.css and recheck all output. Fonts and browser versions affect line breaks; record them when comparing output.
+
+## Atlas theme fields (图谱)
+
+Only valid with `theme: "atlas"` / `--theme atlas`; light and dark reject them. Full example: `examples/atlas-intro/content.json`.
+
+- Page optional: `layout` (`page` default, `cover`, `end`); `toc` (true on a cover adds a contents list built from other pages' `short` → `sub` → first title line); `short` (contents label).
+- Block optional: `num` (text in the orange circle; default is order within the page). `label` renders as the gray note beside the module title. `panel` is the small caps header inside the board. Empty `caption` is hidden.
+- `steps`: `items` 2–6 nodes (text after `\n` is a gray subline); `actions` one per gap for solid forward arrows; optional `back` one per gap ("" for none) for dashed return arrows. Arrows number themselves. ≤4 nodes lay out horizontally, more stack vertically.
+- `table`: `head` 2–4 column names; `trows` nonempty array of `{"cells": [...], "state": "pending" | "done" | "dropped" | ""}`. pending = orange bold last cell, done = gray row, dropped = gray strikethrough.
+- `files`: `rows` pairs `[name, note]`; name is monospace.
+- `cards`: `rows` pairs `[heading, body]`; 3 or 6 cards use three columns, otherwise two; optional `highlight` (index, orange border) and `dropped` (indices, dashed box).
+- `callout`: `items` are points; `tone` `fill` (pale orange, default) or `outline` (orange-bordered white card).
+- `paras`, `items` and `caption` stay required by the base schema; use `[]` / `""` when a kind does not need them.

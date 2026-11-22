@@ -1,0 +1,140 @@
+{
+  "series": "su-zine · 图谱 atlas",
+  "brand": "分享自 Su 𝕏 @Sukiea1008",
+  "theme": "atlas",
+  "pages": [
+    {
+      "layout": "cover",
+      "toc": true,
+      "sub": "SU-ZINE · 文章转杂志套图",
+      "title": "一篇文章，\n变成一组值得读的图",
+      "intro": "把链接、文章或文档，整理成中文杂志套图。先读懂，再拆解，最后用统一版式把内容讲清楚。",
+      "source": "su-zine 的 SKILL.md、README 与内容格式说明 · 项目介绍，非效果测试",
+      "blocks": [
+        {
+          "num": "00",
+          "title": "适合做什么",
+          "label": "页数跟着内容走，不固定四张",
+          "kind": "callout",
+          "tone": "fill",
+          "paras": [],
+          "items": [
+            "文章拆解：把长文的论点、依据与例子整理成连续阅读的图文",
+            "知识分享：将教程、报告或学习笔记做成易读的知识卡片",
+            "项目介绍：用统一的视觉风格说明一个工具、方法或工作流程"
+          ],
+          "caption": ""
+        }
+      ]
+    },
+    {
+      "sub": "01 · 工作流",
+      "short": "工作流：先核对，再排版",
+      "title": "好看的前提，\n是把内容核对清楚",
+      "intro": "助手负责阅读、核实和组织内容；脚本只负责排版与导出。",
+      "source": "su-zine README「工作流」与 SKILL.md 第 1–5 节",
+      "blocks": [
+        {
+          "num": "01",
+          "title": "从原文到 PNG",
+          "label": "五步，每步都可以回头改",
+          "kind": "steps",
+          "panel": "WORKFLOW",
+          "paras": [],
+          "items": ["读完整原文\n记录来源", "核对主张\n事实 / 观点 / 建议", "组织套图\n每页一个问题", "本地排版\nJSON → HTML/CSS", "逐张验收\n打开每张 PNG"],
+          "actions": ["读取失败就补全文", "数字引语回到来源", "先写提纲和文案", "浏览器直接导出"],
+          "caption": "概念示意 · 编辑整理"
+        },
+        {
+          "num": "02",
+          "title": "脚本不会做的事",
+          "label": "发布另行决定",
+          "kind": "callout",
+          "tone": "outline",
+          "paras": [],
+          "items": [
+            "不会自动抓取文章、查证事实",
+            "不会替你发布到 GitHub、图床、社交媒体或网站",
+            "导出成功不等于内容正确，必须逐张打开 PNG 检查"
+          ],
+          "caption": ""
+        }
+      ]
+    },
+    {
+      "sub": "02 · 三套主题",
+      "short": "三套主题与仓库结构",
+      "title": "同一份内容，\n三种版式语言",
+      "intro": "JSON 根节点写 theme，或命令行用 --theme 覆盖。省略即为浅色。",
+      "source": "su-zine README「深色主题」「目录」与 references/content-schema.md",
+      "blocks": [
+        {
+          "num": "03",
+          "title": "选一套主题",
+          "label": "light 为默认",
+          "kind": "cards",
+          "paras": [],
+          "items": [],
+          "highlight": 2,
+          "dropped": [3],
+          "rows": [
+            ["light", "白底、中文衬线标题、细灰线、双栏模块与低饱和配色"],
+            ["dark", "近黑底、白色正文，版式与浅色完全一致，只覆盖颜色"],
+            ["atlas 图谱", "暖米白底、单一焦橙强调色、带序号模块、流程箭头、状态表与文件清单"],
+            ["不包含", "PDF 中间步骤：三套主题都由浏览器直接导出 PNG"]
+          ],
+          "caption": ""
+        },
+        {
+          "num": "04",
+          "title": "仓库里有什么",
+          "label": "保留 scripts/、assets/ 和 references/，不要只复制说明文件",
+          "kind": "files",
+          "paras": [],
+          "items": [],
+          "rows": [
+            ["SKILL.md", "助手的完整工作流"],
+            ["scripts/", "JSON → HTML/CSS → PNG"],
+            ["assets/", "版式、样例：style.css、theme-dark.css、theme-atlas.css"],
+            ["references/", "内容格式说明"],
+            ["examples/", "示例文案与来源"],
+            ["tests/", "构建与浏览器测试"]
+          ],
+          "caption": ""
+        }
+      ]
+    },
+    {
+      "layout": "end",
+      "sub": "03 · 检查与开始",
+      "short": "导出前后的检查清单",
+      "title": "每一页，\n都要打开看一遍",
+      "intro": "脚本通过，不等于内容与视觉检查完成。",
+      "source": "su-zine SKILL.md 第 5 节「Inspect every page and revise」与 README「检查与边界」",
+      "blocks": [
+        {
+          "num": "05",
+          "title": "验收清单",
+          "label": "导出器会拦下的，和必须自己看的",
+          "kind": "table",
+          "paras": [],
+          "items": [],
+          "head": ["检查项", "谁来做", "说明"],
+          "trows": [
+            {"cells": ["元素溢出", "导出器", "出现溢出直接报错"], "state": "done"},
+            {"cells": ["高度与像素上限", "导出器", "超限报错，过长就拆页"], "state": "done"},
+            {"cells": ["事实与引用", "人工", "对照来源记录逐条核对"], "state": "pending"},
+            {"cells": ["中文字形与换行", "人工", "字体加载正常也不保证字形完整"], "state": "pending"}
+          ],
+          "caption": "灰色行由脚本自动拦截；橙色行需要打开 PNG 自己检查。"
+        }
+      ],
+      "checktitle": "一句话开始",
+      "checks": [
+        ["告诉助手", "用 su-zine 把这篇文章转成杂志图，主题用图谱"],
+        ["补充要求", "中文、面向初学者、保留来源，区分作者观点和编辑建议"]
+      ],
+      "closing": "保留来源，\n也保留判断。"
+    }
+  ]
+}

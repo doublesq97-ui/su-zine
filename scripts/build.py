@@ -5,6 +5,16 @@ import html
 import json
 from pathlib import Path
 
+try:
+    import atlas
+except ImportError:  # imported as a file by tests
+    import importlib.util as _u
+    _spec = _u.spec_from_file_location("atlas", Path(__file__).resolve().parent / "atlas.py")
+    atlas = _u.module_from_spec(_spec)
+    _spec.loader.exec_module(atlas)
+
+THEMES = ("light", "dark", "atlas")
+
 KINDS = {"flow", "stack", "tags", "papers"}
 
 
@@ -26,8 +36,8 @@ def pairs(value, where):
 def validate(data):
     if not isinstance(data, dict):
         raise ValueError("root must be an object")
-    if data.get("theme", "light") not in ("light", "dark"):
-        raise ValueError("theme must be light or dark")
+    if data.get("theme", "light") not in THEMES:
+        raise ValueError("theme must be light, dark or atlas")
     for key in ("series", "brand"):
         text(data.get(key), key)
     if not isinstance(data.get("pages"), list) or not data["pages"]:
@@ -48,8 +58,8 @@ def validate(data):
                 raise ValueError("block must be an object")
             for key in ("title", "kind", "caption"):
                 text(block.get(key), key)
-            if block["kind"] not in KINDS:
-                raise ValueError("kind must be flow, stack, tags, or papers")
+            if block["kind"] not in KINDS | atlas.NEW_KINDS:
+                raise ValueError("kind must be flow, stack, tags, papers, or an atlas kind")
             for key in ("label", "panel"):
                 if key in block:
                     text(block[key], key)
@@ -109,19 +119,28 @@ def page_html(data, page, number):
 def build(source, out, theme=None):
     data = validate(json.loads(source.read_text(encoding="utf-8")))
     theme = data.get("theme", "light") if theme is None else theme
-    if theme not in ("light", "dark"):
-        raise ValueError("theme must be light or dark")
+    if theme not in THEMES:
+        raise ValueError("theme must be light, dark or atlas")
+    if theme == "atlas":
+        atlas.validate(data)
+    elif any(b["kind"] in atlas.NEW_KINDS for p in data["pages"] for b in p["blocks"]) or \
+            any(p.get("layout", "page") != "page" for p in data["pages"]):
+        raise ValueError("steps/table/files/cards/callout and layout need --theme atlas")
     # A fresh output directory prevents stale page PNG files being mistaken for this build.
     if out.exists() and (not out.is_dir() or any(out.iterdir())):
         raise ValueError("--out must be a new or empty directory")
     out.mkdir(parents=True, exist_ok=True)
     css = Path(__file__).resolve().parent.parent / "assets" / "style.css"
     stylesheet = css.read_text(encoding="utf-8")
+    if theme == "atlas":
+        # Atlas is a standalone stylesheet: different geometry, not a color override.
+        stylesheet = (css.parent / "theme-atlas.css").read_text(encoding="utf-8")
     if theme == "dark":
         stylesheet += "\n" + (css.parent / "theme-dark.css").read_text(encoding="utf-8")
     (out / "style.css").write_text(stylesheet, encoding="utf-8")
     for n, page in enumerate(data["pages"], 1):
-        (out / f"page-{n:02}.html").write_text(page_html(data, page, n), encoding="utf-8")
+        maker = atlas.page_html if theme == "atlas" else page_html
+        (out / f"page-{n:02}.html").write_text(maker(data, page, n), encoding="utf-8")
     return len(data["pages"])
 
 
@@ -129,7 +148,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("content", type=Path)
     parser.add_argument("--out", type=Path, required=True)
-    parser.add_argument("--theme", choices=("light", "dark"), help="Override JSON theme; default is light")
+    parser.add_argument("--theme", choices=THEMES, help="Override JSON theme; default is light")
     args = parser.parse_args()
     try:
         count = build(args.content, args.out, args.theme)

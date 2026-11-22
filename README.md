@@ -70,7 +70,7 @@ git clone https://github.com/doublesq97-ui/su-zine.git
 
 同一份内容的字体、字号、行高、边距、双栏、模块顺序和页脚保持原样；只覆盖颜色，不添加装饰环或重做版式。
 
-JSON 根节点可写 `"theme": "dark"`；命令行 `--theme light|dark` 可覆盖 JSON。省略两者即为浅色；无效主题会报错。颜色覆盖在 `assets/theme-dark.css`。
+JSON 根节点可写 `"theme": "dark"`；命令行 `--theme light|dark|atlas` 可覆盖 JSON。省略两者即为浅色；无效主题会报错。颜色覆盖在 `assets/theme-dark.css`。
 
 ```bash
 python3 scripts/build.py examples/dark-update/content.json --out output/dark-update --theme dark
@@ -78,6 +78,26 @@ node scripts/render.cjs output/dark-update --scale 2
 ```
 
 仍使用浏览器直接导出 PNG，不包含私有版 PDF 流程。切回浅色请用新的 `--out` 目录和 `--theme light`。
+
+## 图谱主题 atlas（2026-11-22）
+
+新增一套独立版式「图谱」：像一本参考手册或系统架构图。暖米白底 `#FAF8F3`，只用一种焦橙 `#C8611E` 做强调；橙色圆形序号的模块标题配灰色注释，米灰底板里放白色细边卡片和黑框节点；底部细线分隔 SOURCE 行，右下角署名。中文用 Noto Sans SC 粗体标题，英文 Inter，文件名与序号用 JetBrains Mono；最小字号按手机阅读放大到 21–22 CSS px。
+
+<p align="center">
+  <a href="output/atlas-intro/page-01.png"><img src="output/atlas-intro/page-01.png" alt="图谱示例第 1 页：封面与目录" width="24%"></a>
+  <a href="output/atlas-intro/page-02.png"><img src="output/atlas-intro/page-02.png" alt="图谱示例第 2 页：流程箭头图与要点卡" width="24%"></a>
+  <a href="output/atlas-intro/page-03.png"><img src="output/atlas-intro/page-03.png" alt="图谱示例第 3 页：对比卡与文件清单" width="24%"></a>
+  <a href="output/atlas-intro/page-04.png"><img src="output/atlas-intro/page-04.png" alt="图谱示例第 4 页：状态表格与结尾页" width="24%"></a>
+</p>
+
+除原有的流程、层级、标签、对照外，图谱多了五种组件：`steps` 带编号动作的流程箭头图、`table` 状态表格（待办橙色、完成变灰）、`files` 等宽文件清单、`cards` 对比卡（橙框高亮、虚线表示丢弃或待定）、`callout` 要点卡；页面可设 `cover`（自动目录）和 `end` 版式。字段见 [内容格式说明](references/content-schema.md#atlas-theme-fields-图谱)。
+
+```bash
+python3 scripts/build.py examples/atlas-intro/content.json --out output/my-atlas
+node scripts/render.cjs output/my-atlas --scale 2
+```
+
+图谱是独立样式表 `assets/theme-atlas.css`，不影响浅色和深色的输出；图谱专用组件在 light/dark 下会报错。标题 900 字重需要 Noto Sans SC 或 `fonts-noto-cjk-extra`。
 
 ## 本地运行
 
@@ -106,7 +126,7 @@ npm test
 
 - 从 [`assets/example.json`](assets/example.json) 或 [`examples/intro/content.json`](examples/intro/content.json) 开始替换内容。
 - JSON 格式、模块与命令见 [内容格式说明](references/content-schema.md)。
-- 字体、边距和配色在 [`assets/style.css`](assets/style.css) 中调整。
+- 字体、边距和配色在 [`assets/style.css`](assets/style.css) 中调整；图谱主题在 [`assets/theme-atlas.css`](assets/theme-atlas.css) 顶部的 token 里调整。
 - 内容字符串统一转义，不接受任意 HTML。
 
 ## 检查与边界
@@ -126,7 +146,8 @@ npm test
 | `scripts/` | JSON → HTML/CSS → PNG |
 | `assets/`、`references/` | 版式、样例和内容格式 |
 | `examples/intro/` | 介绍图文案与来源 |
-| `output/intro/` | 实际浏览器导出的示例 |
+| `examples/atlas-intro/` | 图谱主题示例文案与来源 |
+| `output/intro/`、`output/atlas-intro/` | 实际浏览器导出的示例 |
 | `docs/media/` | README 工作流动图、静态图与图结构源文件 |
 | `tests/` | 构建与浏览器测试 |
 

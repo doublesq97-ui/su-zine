@@ -73,3 +73,15 @@ The workflow illustration uses Su’s local su-black-purple-gif renderer. Its or
 No original license text or attribution is replaced by this update.
 
 - .github/workflows/themes.yml: PolyForm.
+
+## Atlas theme update (2026-11-22)
+
+- assets/theme-atlas.css: PolyForm.
+- scripts/atlas.py: PolyForm.
+- tests/test_atlas.py: PolyForm.
+- examples/atlas-intro/content.json: CC.
+- examples/atlas-intro/sources.md: CC.
+- output/atlas-intro/page-01.html … page-04.html: Mixed.
+- output/atlas-intro/page-01.png … page-04.png: Mixed.
+- output/atlas-intro/render-report.json: CC.
+- output/atlas-intro/style.css: PolyForm.

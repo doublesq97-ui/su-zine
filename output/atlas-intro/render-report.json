@@ -1,0 +1,46 @@
+[
+  {
+    "file": "page-01.png",
+    "cssWidth": 1200,
+    "cssHeight": 1452.828125,
+    "overflow": [],
+    "fonts": "loaded",
+    "width": 2400,
+    "height": 2906,
+    "scale": 2,
+    "browser": "156.0.8078.47"
+  },
+  {
+    "file": "page-02.png",
+    "cssWidth": 1200,
+    "cssHeight": 2023.59375,
+    "overflow": [],
+    "fonts": "loaded",
+    "width": 2400,
+    "height": 4048,
+    "scale": 2,
+    "browser": "156.0.8078.47"
+  },
+  {
+    "file": "page-03.png",
+    "cssWidth": 1200,
+    "cssHeight": 1965.609375,
+    "overflow": [],
+    "fonts": "loaded",
+    "width": 2400,
+    "height": 3932,
+    "scale": 2,
+    "browser": "156.0.8078.47"
+  },
+  {
+    "file": "page-04.png",
+    "cssWidth": 1200,
+    "cssHeight": 1843.4375,
+    "overflow": [],
+    "fonts": "loaded",
+    "width": 2400,
+    "height": 3688,
+    "scale": 2,
+    "browser": "156.0.8078.47"
+  }
+]

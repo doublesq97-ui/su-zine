@@ -58,3 +58,11 @@ Date: 2026-11-09. Prepared locally on macOS; no remote repository was created or
 - Original license files and private material boundary preserved. Theme/example/test/workflow license scope recorded in LICENSE-SCOPE.md.
 
 Verification: https://github.com/doublesq97-ui/su-zine/actions/runs/44355883669
+
+## Atlas theme (图谱) — 2026-11-22
+
+- Added `assets/theme-atlas.css`, `scripts/atlas.py`, atlas branch in `scripts/build.py`, `examples/atlas-intro/`, `output/atlas-intro/`, `tests/test_atlas.py`. `scripts/render.cjs`, `assets/style.css` and `assets/theme-dark.css` unchanged.
+- Light/dark regression: HTML/CSS for assets/example.json, examples/intro and examples/dark-update built with the parent commit's builder and with this builder are identical; the light example PNG is byte-identical.
+- Local run: Linux, Python 3, Node.js 24, Playwright 1.62.1 with system Google Chrome via CHROMIUM_PATH. 11 Python tests (5 new atlas tests) and 3 Node tests passed.
+- Atlas example (neutral su-zine introduction from README/SKILL, no third-party or private content): 4 pages, 2400 × 2906 / 4048 / 3932 / 3688, no overflow. Every page opened at full view and in 2× crops: CJK glyphs, arrows, table states, footer and account line checked; no clipping or missing glyphs.
+- Fonts: Noto Sans SC variable + Noto Sans CJK SC, Inter, JetBrains Mono. The CI workflow still installs only fonts-noto-cjk (Regular/Bold), so CI renders atlas titles in Bold; adding fonts-noto-cjk-extra and an atlas render step to themes.yml is a pending follow-up.
